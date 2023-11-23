@@ -16,10 +16,21 @@ document.addEventListener('DOMContentLoaded', function () {
     let isDrawing = false;
     let startWire = null;
     
+    // Event Listeners
     schematicEditor.addEventListener('mousedown', handleMouseDown);
     schematicEditor.addEventListener('mousemove', handleMouseMove);
     schematicEditor.addEventListener('mouseup', handleMouseUp);
-
+    const refreshButton = document.getElementById('refresh-button');
+    refreshButton.addEventListener('click', function () {
+        while (schematicEditor.firstChild) {
+            schematicEditor.removeChild(schematicEditor.firstChild);
+        }
+    
+        // Clear components and wires arrays
+        components.length = 0;
+        wires.length = 0;
+    });
+    
     function handleMouseDown(event) {
         const component = createComponent(event);
         components.push(component);
@@ -27,13 +38,18 @@ document.addEventListener('DOMContentLoaded', function () {
         startWire = createWire(event);
         isDrawing = true;
     }
-
+    
     function handleMouseMove(event) {
+        const schematicEditor = document.getElementById('schematic-editor');
         let screenLog = document.getElementById("screen-log")
-        screenLog.innerText = `
-              Screen X/Y: ${event.screenX}, ${event.screenY}
-              Client X/Y: ${event.clientX}, ${event.clientY}
-              Offset X/Y: ${event.offsetX}, ${event.offsetY}`;
+        screenLog.innerText = `Screen X/Y: ${event.screenX}, ${event.screenY}
+        Client X/Y: ${event.clientX}, ${event.clientY}
+        Offset X/Y: ${event.offsetX}, ${event.offsetY}
+        Calculation: ${(event.clientX - schematicEditor.offsetLeft + 1)}, ${(event.clientY - schematicEditor.offsetTop + 1)}
+              ------------------------------
+
+              Extra Tests: ---`;
+
         if (isDrawing) {
             updateWire(event.offsetX, event.offsetY);
         }
@@ -49,22 +65,20 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function createComponent(event) {
-        const containerRect = document.querySelector('.container').getBoundingClientRect();
+        const schematicEditor = document.getElementById('schematic-editor');
         const component = document.createElement('div');
         component.className = 'component';
-        component.style.left = (event.offsetX - containerRect.left) + 'px';
-        component.style.top = (event.offsetY - containerRect.top) + 'px';
+        component.style.left = (event.clientX - schematicEditor.offsetLeft + 1) + 'px';
+        component.style.top = (event.clientY - schematicEditor.offsetTop + 1) + 'px';
         schematicEditor.appendChild(component);
         return component;
     }
 
     function createWire(event) {
-        
-        const containerRect = document.querySelector('.container').getBoundingClientRect();
         const wire = document.createElement('div');
         wire.className = 'wire';
-        wire.style.left = (event.offsetX - containerRect.left) + 'px';
-        wire.style.top = (event.offsetY - containerRect.top) + 'px';
+        wire.style.left = (event.clientX - schematicEditor.offsetLeft + 1) + 'px';
+        wire.style.top = (event.clientY - schematicEditor.offsetTop + 1) + 'px';
         schematicEditor.appendChild(wire);
         return wire;
     }
@@ -75,4 +89,5 @@ document.addEventListener('DOMContentLoaded', function () {
             startWire.style.height = y - startWire.offsetTop + 'px';
         }
     }
+
 });
