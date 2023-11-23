@@ -34,14 +34,14 @@
 
 .wire {
     position: absolute;
-    background-color: #2ecc71;
+    background-color: #7f7f7f;
     opacity: 0.5;
     border-radius: 2.5px; 
 }
 
 .wire-connection {
     position: absolute;
-    background-color: #2ecc71;
+    background-color: #d48f8f;
     opacity: 0.5;
 }
 

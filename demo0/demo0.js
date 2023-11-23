@@ -1,11 +1,4 @@
 console.log("page loaded")
-// let screenLog = document.getElementById("screen-log")
-// document.addEventListener("mousemove", logKey);
-// function logKey(e) {
-//     screenLog.innerText = `
-//       Screen X/Y: ${e.screenX}, ${e.screenY}
-//       Client X/Y: ${e.clientX}, ${e.clientY}`;
-//   }
 
 document.addEventListener('DOMContentLoaded', function () {
     const schematicEditor = document.getElementById('schematic-editor');
@@ -25,9 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
         while (schematicEditor.firstChild) {
             schematicEditor.removeChild(schematicEditor.firstChild);
         }
-    
-        // Clear components and wires arrays
-        components.length = 0;
+        components.length = 0; // <-- Clearing arrays
         wires.length = 0;
     });
     
@@ -46,9 +37,8 @@ document.addEventListener('DOMContentLoaded', function () {
         Client X/Y: ${event.clientX}, ${event.clientY}
         Offset X/Y: ${event.offsetX}, ${event.offsetY}
         Calculation: ${(event.clientX - schematicEditor.offsetLeft + 1)}, ${(event.clientY - schematicEditor.offsetTop + 1)}
-              ------------------------------
 
-              Extra Tests: ---`;
+        Extra Tests: ---`;
 
         if (isDrawing) {
             updateWire(event.offsetX, event.offsetY);
@@ -80,6 +70,9 @@ document.addEventListener('DOMContentLoaded', function () {
         wire.style.left = (event.clientX - schematicEditor.offsetLeft + 1) + 'px';
         wire.style.top = (event.clientY - schematicEditor.offsetTop + 1) + 'px';
         schematicEditor.appendChild(wire);
+
+        startWire = wire;
+
         return wire;
     }
 
@@ -90,4 +83,54 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    function connectComponents(start, end) {
+        // Find components associated with start and end points
+        const startComponent = findComponent(start.offsetLeft, start.offsetTop);
+        const endComponent = findComponent(end.offsetLeft, end.offsetTop);
+        
+        console.log("Start Component:", startComponent);
+        console.log("End Component:", endComponent);
+        
+        if (startComponent && endComponent) {
+            // Logic done to visually connect components
+            const wireConnection = document.createElement('div');
+            wireConnection.className = 'wire-connection';
+            schematicEditor.appendChild(wireConnection);
+
+            const startX = startComponent.offsetLeft + startComponent.offsetWidth / 2;
+            const startY = startComponent.offsetTop + startComponent.offsetHeight / 2;
+
+            const endX = endComponent.offsetLeft + endComponent.offsetWidth / 2;
+            const endY = endComponent.offsetTop + endComponent.offsetHeight / 2;
+
+            const angle = Math.atan2(endY - startY, endX - startX) * (180 / Math.PI);
+            const length = Math.sqrt((endX - startX) ** 2 + (endY - startY) ** 2);
+
+            wireConnection.style.width = length + 'px';
+            wireConnection.style.left = startX + 'px';
+            wireConnection.style.top = startY + 'px';
+            wireConnection.style.transform = 'rotate(' + angle + 'deg)';
+        }
+    }
+
+    function findComponent(x, y) {
+        const foundComponent = components.find(component => {
+            const rect = component.getBoundingClientRect();
+            const isWithinBounds =
+                x >= rect.left &&
+                x <= rect.right &&
+                y >= rect.top &&
+                y <= rect.bottom;
+    
+            console.log(
+                `Checking component at (${x}, ${y}): ${isWithinBounds ? 'Found!' : 'Not Found'}`,
+                rect
+            );
+    
+            return isWithinBounds;
+        });
+    
+        console.log("Found Component:", foundComponent);
+        return foundComponent;
+    }
 });
