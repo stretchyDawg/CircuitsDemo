@@ -130,7 +130,6 @@ document.addEventListener('DOMContentLoaded', function () {
             return isWithinBounds;
         });
     
-        console.log("Found Component:", foundComponent);
         return foundComponent;
     }
 });
