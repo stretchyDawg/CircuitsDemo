@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     refreshButton.addEventListener('click', function () {
         console.log("refresh clicked");
     });
-    schematicEditor.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mousemove', handleMouseMove);
     function handleMouseMove(event) {
         // Coordinates of mouse, and any additional dynamic console logs 
         screenLog.innerText = `Screen X/Y: ${event.screenX}, ${event.screenY}
