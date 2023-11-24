@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
     const schematicEditor = document.getElementById('schematic-editor');
-    
+    let mouseX = 0;
+    let mouseY = 0;
+
     function preventDefault(event) {
         // Done because several events have default functions that must be overwritten
         // Essentially '@Override' from Java
@@ -16,6 +18,9 @@ document.addEventListener('DOMContentLoaded', function () {
         component.addEventListener('dragstart', handleDragStart);
     });
     function handleDragStart(event) {
+        mouseX = event.offsetX
+        mouseY = event.offsetY
+
         // For some reason, some browsers require this to implement dragging
         event.dataTransfer.setData('text/plain', ''); 
         console.log("Dragstart!")
@@ -33,8 +38,8 @@ document.addEventListener('DOMContentLoaded', function () {
     function handleDrop(event) {
         preventDefault(event);
         console.log("Drop")
-        const x = event.clientX - schematicEditor.offsetLeft;
-        const y = event.clientY - schematicEditor.offsetTop;
+        const x = event.clientX - schematicEditor.offsetLeft - mouseX;
+        const y = event.clientY - schematicEditor.offsetTop - mouseY;
 
         // Create a new component at the drop location
         const newComponent = createComponent(x, y);
