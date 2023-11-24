@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Circuit Drag and Drop Demo</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div class="container">
+            
+            <!-- This div contains the components to pick from and drag. -->
+            <div class="settings">
+                <div class="buttons">
+                    <button id="refresh-button">Refresh</button>
+                </div>
+                
+                <div id="screen-log" class="screen-log"></div>
+                
+                <div class="components">
+                    <div id="1" class="static-component" draggable="true"></div>
+                    <div id="2" class="static-component" draggable="true"></div>
+                    <div id="3" class="static-component" draggable="true"></div>
+                    <div id="4" class="static-component" draggable="true"></div>
+                    <div id="5" class="static-component" draggable="true"></div>
+                </div>
+            </div>
+
+            <!-- This div is where you will drag your components. -->
+            <div id="schematic-editor"> 
+
+            </div>
+        </div>
+        
+        <script src="settings.js"></script>
+        <script src="dragndrop.js"></script>
+    </body>
+</html>

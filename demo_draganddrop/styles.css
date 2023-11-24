@@ -1,0 +1,94 @@
+.container{
+    display: flex;
+    background-color: cornsilk;
+}
+.settings{
+    width: 20%;
+    background-color: rgb(196, 196, 196);
+    text-align: center;
+    font-weight: 500;
+}
+.buttons{
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+.screen-log {
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+#schematic-editor {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.components {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-right: 10%;
+    margin-left: 10%;
+    margin-top: 10px;
+}
+.static-component {
+    width: 50px;
+    height: 50px;
+    background-color: #3498db;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 1px #1d5880;
+    margin: 5%;
+}
+.static-component:hover {
+    background-color: #2775aa;
+    box-shadow: 1px 1px 1px 1px #143e5a;
+}
+.component {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: #3498db;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 1px #1d5880;
+}
+
+/* .wire {
+    position: absolute;
+    background-color: #7f7f7f;
+    opacity: 0.5;
+    border-radius: 2.5px; 
+}
+
+.wire-connection {
+    position: absolute;
+    background-color: #d48f8f;
+    opacity: 0.5;
+} */
+
+/* 
+.wire {
+    position: absolute;
+    background-color: #2ecc71;
+    opacity: 0.5;
+    width: 0;
+    height: 0;
+    border: 1px solid rgb(75, 46, 204); 
+    border-radius: 1px; 
+}  
+*/
+
+
+
+/* 
+.wire,
+.wire-connection {
+    position: absolute;
+    background-color: #2ecc71;
+    opacity: 0.5;
+} */
+
+
+
+* {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
