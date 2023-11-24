@@ -5,7 +5,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Event Listeners
     refreshButton.addEventListener('click', function () {
-        console.log("refresh clicked");
+        while (schematicEditor.firstChild) {
+            schematicEditor.removeChild(schematicEditor.firstChild);
+        }
     });
     document.addEventListener('mousemove', handleMouseMove);
     function handleMouseMove(event) {
