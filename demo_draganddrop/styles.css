@@ -108,7 +108,7 @@
     border-bottom: 50px solid #2ecc71; 
     /* box-shadow: 1px 1px 1px 1px #2b8b3b; */
 } 
-.static-component[data-type="top-left"] {
+.component[data-type="top-left"] {
     width: 0;
     height: 0;
     border-top: 50px solid rgb(255, 183, 0);

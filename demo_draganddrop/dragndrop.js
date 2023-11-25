@@ -1,11 +1,20 @@
 document.addEventListener('DOMContentLoaded', function () {
+    const undoButton = document.getElementById('undo-button');
+    const redoButton = document.getElementById('redo-button');
+    undoButton.addEventListener('click', undo);
+    redoButton.addEventListener('click', redo);
+    
     const schematicEditor = document.getElementById('schematic-editor');
     let mouseX = 0;
     let mouseY = 0;
 
+    // Undo and redo, using the Memento Pattern strategy
+    const componentHistory = [];
+    let currentIndex = -1;
+
     function preventDefault(event) {
         // Done because several events have default functions that must be overwritten
-        // Essentially '@Override' from Java
+        // Essentially '@Override' from Java (at least to my current understanding)
         // Made this a separate function since a lot of functions will use this in the future and to provide documentation.
         event.preventDefault();
     }
@@ -50,8 +59,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const newComponent = createComponent(x, y, type);
             schematicEditor.appendChild(newComponent);
         }
-        
+
         console.log("Drop")
+        saveState()
     }
     
     function createComponent(x, y, type) {
@@ -62,6 +72,45 @@ document.addEventListener('DOMContentLoaded', function () {
         component.style.top = `${y}px`;
         component.dataset.type = type
         return component;
+    }
+
+    function updateUI() {
+        // Basically enable/disable undo and redo buttons when they can't do anything
+        undoButton.disabled = (currentIndex === -1);
+        redoButton.disabled = (currentIndex === componentHistory.length - 1);
+    }
+
+    function saveState() {
+        // Save the current state in the history
+        // Do this by splicing by the currentIndex (if you know your list slicing from python, it's just a_list[0:currentIndex])
+        // CurrentIndex is either incremented or decremented based on the button you press 
+        currentIndex++;
+        componentHistory.splice(currentIndex);
+        componentHistory.push(schematicEditor.innerHTML);
+
+        updateUI();
+    }
+
+    function undo() {
+        console.log(componentHistory)
+        if (currentIndex > 0) {
+            currentIndex--;
+            schematicEditor.innerHTML = componentHistory[currentIndex];
+        }
+        else if (currentIndex === 0){
+            currentIndex = -1
+            schematicEditor.innerHTML = "";
+        }
+        updateUI();
+    }
+
+    function redo() {
+        console.log(componentHistory)
+        if (currentIndex < componentHistory.length - 1) {
+            currentIndex++;
+            schematicEditor.innerHTML = componentHistory[currentIndex];
+        }
+        updateUI();
     }
 });
    
