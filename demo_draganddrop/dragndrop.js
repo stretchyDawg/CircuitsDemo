@@ -21,8 +21,10 @@ document.addEventListener('DOMContentLoaded', function () {
         mouseX = event.offsetX
         mouseY = event.offsetY
 
-        // For some reason, some browsers require this to implement dragging
-        event.dataTransfer.setData('text/plain', ''); 
+        // Get specific type
+        const type = event.target.getAttribute('data-type');
+        event.dataTransfer.setData('text/plain', type); // You can also pass in the type
+        
         console.log("Dragstart!")
     }
 
@@ -31,27 +33,34 @@ document.addEventListener('DOMContentLoaded', function () {
     schematicEditor.addEventListener('dragover', handleDragOver);
     function handleDragOver(event){
         preventDefault(event);
+        
         console.log("Dragover")
     };
 
     schematicEditor.addEventListener('drop', handleDrop);
     function handleDrop(event) {
         preventDefault(event);
-        console.log("Drop")
         const x = event.clientX - schematicEditor.offsetLeft - mouseX;
         const y = event.clientY - schematicEditor.offsetTop - mouseY;
+        const type = event.dataTransfer.getData('text/plain')
 
-        // Create a new component at the drop location
-        const newComponent = createComponent(x, y);
-        schematicEditor.appendChild(newComponent);
+        // Checks if the thing selected (the target) is a component (by checking its classlist)
+        if(!event.target.classList.contains("component")){            
+            // Create a new component at the drop location
+            const newComponent = createComponent(x, y, type);
+            schematicEditor.appendChild(newComponent);
+        }
+        
+        console.log("Drop")
     }
     
-    function createComponent(x, y) {
+    function createComponent(x, y, type) {
         // Creates a new component element
         const component = document.createElement('div');
         component.className = 'component';
         component.style.left = `${x}px`;
         component.style.top = `${y}px`;
+        component.dataset.type = type
         return component;
     }
 });

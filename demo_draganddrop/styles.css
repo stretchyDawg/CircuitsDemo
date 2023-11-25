@@ -34,22 +34,90 @@
 .static-component {
     width: 50px;
     height: 50px;
-    background-color: #3498db;
-    border-radius: 5px;
-    box-shadow: 1px 1px 1px 1px #1d5880;
     margin: 5%;
 }
-.static-component:hover {
+.static-component[data-type="square"] {
+    background-color: #3498db; 
+    box-shadow: 1px 1px 1px 1px #1d5880;
+    border-radius: 5px;
+}
+.static-component[data-type="square"]:hover {
     background-color: #2775aa;
     box-shadow: 1px 1px 1px 1px #143e5a;
 }
+
+.static-component[data-type="circle"] {
+    background-color: #de5353; 
+    border-radius: 50%;
+    box-shadow: 1px 1px 1px 1px #844040; 
+}
+.static-component[data-type="circle"]:hover {
+    background-color: #bf4747;
+}
+
+.static-component[data-type="triangle"] {
+    width: 0;
+    height: 0;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-bottom: 50px solid #2ecc71; 
+}
+.static-component[data-type="triangle"]:hover {
+    border-bottom: 50px solid rgb(28, 124, 68); 
+}
+
+.static-component[data-type="top-left"] {
+    width: 0;
+    height: 0;
+    border-top: 50px solid rgb(255, 183, 0);
+    border-right: 50px solid transparent;
+}
+.static-component[data-type="top-left"]:hover {
+    border-top: 50px solid rgb(157, 130, 8); 
+}
+
+.static-component[data-type="circle2"] {
+    background-color: #de53d9; 
+    border-radius: 50%;
+    box-shadow: 1px 1px 1px 1px rgb(132, 64, 129); 
+}
+.static-component[data-type="circle2"]:hover {
+    background-color: #bf4793;
+}
+
 .component {
     position: absolute;
     width: 50px;
     height: 50px;
-    background-color: #3498db;
-    border-radius: 5px;
+}
+.component[data-type="square"] {
+    background-color: #3498db; 
     box-shadow: 1px 1px 1px 1px #1d5880;
+    border-radius: 5px;
+}
+.component[data-type="circle"] {
+    background-color: #de5353; 
+    box-shadow: 1px 1px 1px 1px #844040; 
+    border-radius: 50%;
+}
+.component[data-type="triangle"] {
+    width: 0;
+    height: 0;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-bottom: 50px solid #2ecc71; 
+    /* box-shadow: 1px 1px 1px 1px #2b8b3b; */
+} 
+.static-component[data-type="top-left"] {
+    width: 0;
+    height: 0;
+    border-top: 50px solid rgb(255, 183, 0);
+    border-right: 50px solid transparent;
+}
+.component[data-type="circle2"] {
+    background-color: #de53d9; 
+    border-radius: 50%;
+    box-shadow: 1px 1px 1px 1px rgb(132, 64, 129); 
 }
 
 /* .wire {
