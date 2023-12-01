@@ -1,2 +1,2 @@
 # CircuitsDemo
-Used for demos and tests for the CircuitsMadeEasy project.
+Used for demos, features, code examples and tests for the CircuitCheatSheet project. 
