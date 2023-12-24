@@ -6,8 +6,6 @@ function App() {
     <div>
       <div className="container">
         Grid Demo
-        <span></span>
-        
       </div>
       <View />
     </div>
